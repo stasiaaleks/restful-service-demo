@@ -34,13 +34,14 @@ class ArticleService {
     const now = new Date();
 
     if (lock && lock.owner !== user && lock.expiresAt > now) {
-      throw HttpError.locked(`Article is locked by "${lock.owner}" until ${lock.expiresAt.toISOString()}`);
+      const until = lock.expiresAt.toISOString().slice(0, 19).replace('T', ' ');
+      throw HttpError.locked(`Article is locked by ${lock.owner} until ${until} UTC`);
     }
     if (lock?.owner !== user || lock.expiresAt <= now) {
       throw HttpError.locked(CONFIG.ERRORS.LOCK_REQUIRED);
     }
     if (requiredStatus && article.status !== requiredStatus) {
-      throw HttpError.conflict(statusMessage ?? `Article is "${article.status}", expected "${requiredStatus}"`);
+      throw HttpError.conflict(statusMessage ?? `Article is ${article.status}, expected ${requiredStatus}`);
     }
     throw HttpError.conflict('Article was modified concurrently, try again');
   }
@@ -90,7 +91,7 @@ class ArticleService {
   async changeStatus(id, user, action, from, to, extraFields = {}) {
     this.validateUser(user);
     const updated = await this.repository.updateLocked(id, user, from, { status: to, ...extraFields });
-    return updated ?? (await this.explainFailure(id, user, from, `Cannot ${action}: article must be "${from}"`));
+    return updated ?? (await this.explainFailure(id, user, from, `Cannot ${action}: article must be ${from}`));
   }
 
   async publishArticle(id, user) {

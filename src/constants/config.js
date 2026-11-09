@@ -16,7 +16,7 @@ const CONFIG = {
   ERRORS: {
     REQUIRED_FIELDS: 'Title, author and content are required',
     INVALID_TAGS: 'Tags must be an array of strings',
-    USER_REQUIRED: 'Field "user" is required',
+    USER_REQUIRED: 'Field user is required',
     ARTICLE_NOT_FOUND: 'Article not found',
     LOCK_REQUIRED: 'You must hold the lock on this article to change it',
     NOT_EDITABLE: 'Only draft articles can be edited',
