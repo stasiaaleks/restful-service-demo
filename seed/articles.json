@@ -1,0 +1,58 @@
+[
+  {
+    "title": "Getting Started with Express 5",
+    "author": "Olena Kovalenko",
+    "content": "Express 5 finally handles rejected promises in route handlers, so async controllers no longer need wrapper functions.",
+    "tags": ["nodejs", "express"],
+    "status": "published"
+  },
+  {
+    "title": "DAO Pattern in JavaScript",
+    "author": "Andrii Shevchenko",
+    "content": "A Data Access Object hides the details of the storage engine behind a small, intention-revealing interface.",
+    "tags": ["patterns", "architecture"],
+    "status": "published"
+  },
+  {
+    "title": "Pessimistic vs Optimistic Locking",
+    "author": "Olena Kovalenko",
+    "content": "Pessimistic locking prevents conflicts up front by granting exclusive access; optimistic locking detects them on save.",
+    "tags": ["databases", "concurrency"],
+    "status": "draft"
+  },
+  {
+    "title": "Designing RESTful URLs",
+    "author": "Maksym Bondarenko",
+    "content": "Resources are nouns, HTTP methods are verbs. Actions that do not fit CRUD can be modelled as sub-resources.",
+    "tags": ["rest", "api"],
+    "status": "published"
+  },
+  {
+    "title": "MongoDB Atomic Operations",
+    "author": "Andrii Shevchenko",
+    "content": "findOneAndUpdate evaluates the filter and applies the update atomically on a single document.",
+    "tags": ["mongodb", "concurrency"],
+    "status": "draft"
+  },
+  {
+    "title": "HTTP Status Codes Cheat Sheet",
+    "author": "Iryna Melnyk",
+    "content": "200 OK, 201 Created, 400 Bad Request, 404 Not Found, 409 Conflict, 423 Locked.",
+    "tags": ["http", "api"],
+    "status": "archived"
+  },
+  {
+    "title": "Docker Compose for Local Development",
+    "author": "Maksym Bondarenko",
+    "content": "Running the database in a container keeps the host clean and makes the setup reproducible.",
+    "tags": ["docker", "devops"],
+    "status": "published"
+  },
+  {
+    "title": "Testing APIs with Postman",
+    "author": "Iryna Melnyk",
+    "content": "Collections, environments and variables make manual API testing repeatable.",
+    "tags": ["testing", "api"],
+    "status": "draft"
+  }
+]
