@@ -18,14 +18,19 @@ const CONFIG = {
     INVALID_TAGS: 'Tags must be an array of strings',
     USER_REQUIRED: 'Field user is required',
     ARTICLE_NOT_FOUND: 'Article not found',
+    ROUTE_NOT_FOUND: 'Route not found',
     LOCK_REQUIRED: 'You must hold the lock on this article to change it',
     NOT_EDITABLE: 'Only draft articles can be edited',
+    LOCKED_BY: (owner, until) => `Article is locked by ${owner} until ${until} UTC`,
+    INVALID_TRANSITION: (action, from) => `Cannot ${action}: article must be ${from}`,
+    CONCURRENT_MODIFICATION: 'Article was modified concurrently, try again',
     DB_NOT_INITIALIZED: 'Database not initialized. Call connectDB first.'
   },
 
   HTTP_STATUS: {
     OK: 200,
     CREATED: 201,
+    NO_CONTENT: 204,
     BAD_REQUEST: 400,
     NOT_FOUND: 404,
     CONFLICT: 409,

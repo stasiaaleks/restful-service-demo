@@ -4,13 +4,14 @@ import CONFIG from './constants/config.js';
 import { connectDB } from './db/connection.js';
 import apiRoutes from './routes/api.js';
 import errorHandler from './middleware/errorHandler.js';
+import HttpError from './errors/httpError.js';
 
 const app = express();
 
 app.use('/api', apiRoutes);
 
-app.use((req, res) => {
-  res.status(CONFIG.HTTP_STATUS.NOT_FOUND).json({ error: 'Not found' });
+app.use(() => {
+  throw HttpError.notFound(CONFIG.ERRORS.ROUTE_NOT_FOUND);
 });
 
 app.use(errorHandler);

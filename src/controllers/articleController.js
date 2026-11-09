@@ -2,6 +2,7 @@ import ArticleService from '../services/articleService.js';
 import CONFIG from '../constants/config.js';
 
 // Express 5 leaves req.body undefined when a request has no JSON body
+// https://github.com/expressjs/express/issues/6432 
 const body = (req) => req.body ?? {};
 
 class ArticleController {
@@ -30,8 +31,8 @@ class ArticleController {
   };
 
   delete = async (req, res) => {
-    const deleted = await this.service.deleteArticle(req.params.id, body(req).user);
-    res.json({ deleted });
+    await this.service.deleteArticle(req.params.id, body(req).user);
+    res.status(CONFIG.HTTP_STATUS.NO_CONTENT).end();
   };
 
   lock = async (req, res) => {

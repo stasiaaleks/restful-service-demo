@@ -15,9 +15,11 @@ class ArticleService {
     if (![title, author, content].every(isNonEmptyString)) {
       throw HttpError.badRequest(CONFIG.ERRORS.REQUIRED_FIELDS);
     }
+
     if (!Array.isArray(tags) || !tags.every(isNonEmptyString)) {
       throw HttpError.badRequest(CONFIG.ERRORS.INVALID_TAGS);
     }
+
     return { title: title.trim(), author: author.trim(), content, tags: tags.map((tag) => tag.trim()) };
   }
 
@@ -27,23 +29,27 @@ class ArticleService {
     }
   }
 
-  // Locked operations are a single conditional update; when it matches nothing, find out why
+  // Locked operations are a single conditional update
+  // When it matches nothing, show why
   async explainFailure(id, user, requiredStatus, statusMessage) {
     const article = await this.getArticleById(id);
     const { lock } = article;
-    const now = new Date();
+    const isActive = lock?.expiresAt > new Date();
 
-    if (lock && lock.owner !== user && lock.expiresAt > now) {
+    if (isActive && lock.owner !== user) {
       const until = lock.expiresAt.toISOString().slice(0, 19).replace('T', ' ');
-      throw HttpError.locked(`Article is locked by ${lock.owner} until ${until} UTC`);
+      throw HttpError.locked(CONFIG.ERRORS.LOCKED_BY(lock.owner, until));
     }
-    if (lock?.owner !== user || lock.expiresAt <= now) {
+
+    if (!isActive) {
       throw HttpError.locked(CONFIG.ERRORS.LOCK_REQUIRED);
     }
+
     if (requiredStatus && article.status !== requiredStatus) {
-      throw HttpError.conflict(statusMessage ?? `Article is ${article.status}, expected ${requiredStatus}`);
+      throw HttpError.conflict(statusMessage);
     }
-    throw HttpError.conflict('Article was modified concurrently, try again');
+    
+    throw HttpError.conflict(CONFIG.ERRORS.CONCURRENT_MODIFICATION);
   }
 
   async getAllArticles() {
@@ -73,7 +79,9 @@ class ArticleService {
   async deleteArticle(id, user) {
     this.validateUser(user);
     const deleted = await this.repository.deleteLocked(id, user);
-    return deleted || (await this.explainFailure(id, user));
+    if (!deleted) {
+      await this.explainFailure(id, user);
+    }
   }
 
   async lockArticle(id, user) {
@@ -91,7 +99,7 @@ class ArticleService {
   async changeStatus(id, user, action, from, to, extraFields = {}) {
     this.validateUser(user);
     const updated = await this.repository.updateLocked(id, user, from, { status: to, ...extraFields });
-    return updated ?? (await this.explainFailure(id, user, from, `Cannot ${action}: article must be ${from}`));
+    return updated ?? (await this.explainFailure(id, user, from, CONFIG.ERRORS.INVALID_TRANSITION(action, from)));
   }
 
   async publishArticle(id, user) {

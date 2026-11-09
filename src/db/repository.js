@@ -26,11 +26,21 @@ class Repository {
     return await this.getCollection().findOne({ _id });
   }
 
-  async create(data) {
+  withTimestamps(data) {
     const now = new Date();
-    const document = { ...data, createdAt: now, updatedAt: now };
+    return { ...data, createdAt: now, updatedAt: now };
+  }
+
+  async create(data) {
+    const document = this.withTimestamps(data);
     const result = await this.getCollection().insertOne(document);
     return { _id: result.insertedId, ...document };
+  }
+
+  async createMany(items) {
+    const documents = items.map((item) => this.withTimestamps(item));
+    const result = await this.getCollection().insertMany(documents);
+    return result.insertedCount;
   }
 
   async update(id, data) {
@@ -41,7 +51,12 @@ class Repository {
     return await this.deleteWhere(id, {});
   }
 
-  // Atomic conditional update: applies only if the document also matches `conditions`
+  async deleteAll() {
+    const result = await this.getCollection().deleteMany({});
+    return result.deletedCount;
+  }
+
+  // Atomic conditional update: applies only if the document also matches conditions
   async updateWhere(id, conditions, update) {
     const _id = this.toObjectId(id);
     if (!_id) return null;

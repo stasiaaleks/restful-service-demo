@@ -1,13 +1,17 @@
-// Express's built-in error handler replies with an HTML page; API clients expect JSON
+import CONFIG from '../constants/config.js';
+
+// Express's built-in error handler replies with an HTML page
+// API clients expect JSON
 const errorHandler = (err, req, res, next) => {
   // express.json() marks malformed bodies with a 4xx status
-  const statusCode = err.statusCode || err.status || 500;
-  if (statusCode >= 500) {
+  const statusCode = err.statusCode || err.status || CONFIG.HTTP_STATUS.INTERNAL_SERVER_ERROR;
+  const isServerError = statusCode >= CONFIG.HTTP_STATUS.INTERNAL_SERVER_ERROR;
+  if (isServerError) {
     console.error(err);
   }
 
   res.status(statusCode).json({
-    error: statusCode >= 500 ? 'Internal server error' : err.message,
+    error: isServerError ? 'Internal server error' : err.message,
     timestamp: new Date().toISOString()
   });
 };

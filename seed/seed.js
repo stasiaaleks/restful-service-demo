@@ -2,23 +2,20 @@ import 'dotenv/config';
 import { readFile } from 'node:fs/promises';
 import CONFIG from '../src/constants/config.js';
 import { connectDB, closeDB } from '../src/db/connection.js';
+import ArticleRepository from '../src/db/articleRepository.js';
 
 const articles = JSON.parse(await readFile(new URL('./articles.json', import.meta.url), 'utf8'));
+const repository = new ArticleRepository();
 
-const db = await connectDB();
-const collection = db.collection(CONFIG.COLLECTIONS.ARTICLES);
-
-const now = new Date();
-await collection.deleteMany({});
-await collection.insertMany(
+await connectDB();
+await repository.deleteAll();
+const count = await repository.createMany(
   articles.map((article) => ({
     ...article,
-    publishedAt: article.status === CONFIG.STATUS.DRAFT ? null : now,
-    lock: null,
-    createdAt: now,
-    updatedAt: now
+    publishedAt: article.status === CONFIG.STATUS.DRAFT ? null : new Date(),
+    lock: null
   }))
 );
 
-console.log(`Seeded ${articles.length} articles`);
+console.log(`Seeded ${count} articles`);
 await closeDB();

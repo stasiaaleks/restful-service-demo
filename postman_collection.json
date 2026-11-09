@@ -781,7 +781,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('status 200', () => pm.response.to.have.status(200));"
+                  "pm.test('status 204', () => pm.response.to.have.status(204));"
                 ]
               }
             }
