@@ -33,7 +33,7 @@ Base URL: `http://localhost:3002/api`
 
 **Workflow:** `draft → published → archived`, plus `published → draft`. Only drafts can be edited.
 
-**Locking:** to edit, delete or change status, the user must lock the article first. The lock expires after `LOCK_TTL_MINUTES` (default 5). While one user holds the lock, everyone else gets `423 Locked`. Locking is a single atomic `findOneAndUpdate`, so two users can never get the same lock at once.
+**Locking:** to edit, delete or change status, the user must lock the article first. A successful change releases the lock, so the next change needs a new lock. To give up a lock without saving, call `DELETE /articles/:id/lock`. The lock expires after `LOCK_TTL_MINUTES` (default 5). While one user holds the lock, everyone else gets `423 Locked`. Locking is a single atomic `findOneAndUpdate`, so two users can never get the same lock at once.
 
 Errors are returned as `{ "error": "..." }` with status 400, 404, 409 or 423.
 
