@@ -1,58 +1,57 @@
 [
   {
-    "title": "Getting Started with Express 5",
-    "author": "Olena Kovalenko",
-    "content": "Express 5 finally handles rejected promises in route handlers, so async controllers no longer need wrapper functions.",
-    "tags": ["nodejs", "express"],
+    "title": "Kill la Kill: Maximum Volume, Zero Restraint",
+    "author": "Anastasiia Aleksieienko",
+    "content": "Studio Trigger's breakout series turns school-uniform battles into a loud, self-aware celebration of over-the-top action.",
+    "tags": [
+      "review",
+      "trigger",
+      "action"
+    ],
     "status": "published"
   },
   {
-    "title": "DAO Pattern in JavaScript",
-    "author": "Andrii Shevchenko",
-    "content": "A Data Access Object hides the details of the storage engine behind a small, intention-revealing interface.",
-    "tags": ["patterns", "architecture"],
+    "title": "Samurai Champloo and the Hip-Hop Edo Period",
+    "author": "Oleksandr Morzynsky",
+    "content": "Shinichiro Watanabe mixes a samurai road trip with lo-fi beats and scratching, and somehow the anachronism just works.",
+    "tags": [
+      "review",
+      "classic",
+      "music"
+    ],
     "status": "published"
   },
   {
-    "title": "Pessimistic vs Optimistic Locking",
-    "author": "Olena Kovalenko",
-    "content": "Pessimistic locking prevents conflicts up front by granting exclusive access; optimistic locking detects them on save.",
-    "tags": ["databases", "concurrency"],
+    "title": "JoJo's Bizarre Adventure: A Guide to the Parts",
+    "author": "Daria Talavira",
+    "content": "Each part follows a new JoJo with a new setting and art style, so knowing where to start matters more than you might think.",
+    "tags": [
+      "guide",
+      "shonen",
+      "jojo"
+    ],
     "status": "draft"
   },
   {
-    "title": "Designing RESTful URLs",
-    "author": "Maksym Bondarenko",
-    "content": "Resources are nouns, HTTP methods are verbs. Actions that do not fit CRUD can be modelled as sub-resources.",
-    "tags": ["rest", "api"],
-    "status": "published"
-  },
-  {
-    "title": "MongoDB Atomic Operations",
-    "author": "Andrii Shevchenko",
-    "content": "findOneAndUpdate evaluates the filter and applies the update atomically on a single document.",
-    "tags": ["mongodb", "concurrency"],
-    "status": "draft"
-  },
-  {
-    "title": "HTTP Status Codes Cheat Sheet",
-    "author": "Iryna Melnyk",
-    "content": "200 OK, 201 Created, 400 Bad Request, 404 Not Found, 409 Conflict, 423 Locked.",
-    "tags": ["http", "api"],
+    "title": "SK8 the Infinity: Skateboarding as Pure Joy",
+    "author": "Pavlo Kolinko",
+    "content": "Bright colours, absurd downhill races and a sincere friendship at its core make SK8 one of Studio Bones' most fun originals.",
+    "tags": [
+      "review",
+      "sports",
+      "bones"
+    ],
     "status": "archived"
   },
   {
-    "title": "Docker Compose for Local Development",
-    "author": "Maksym Bondarenko",
-    "content": "Running the database in a container keeps the host clean and makes the setup reproducible.",
-    "tags": ["docker", "devops"],
-    "status": "published"
-  },
-  {
-    "title": "Testing APIs with Postman",
-    "author": "Iryna Melnyk",
-    "content": "Collections, environments and variables make manual API testing repeatable.",
-    "tags": ["testing", "api"],
+    "title": "Dan Da Dan: Aliens, Ghosts and Teenage Chaos",
+    "author": "Yegor Reznichenko",
+    "content": "Science Saru blends yokai horror, UFO conspiracies and a romcom into one of the most energetic adaptations in years.",
+    "tags": [
+      "review",
+      "supernatural",
+      "science-saru"
+    ],
     "status": "draft"
   }
 ]
