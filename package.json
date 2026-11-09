@@ -1,0 +1,18 @@
+{
+  "name": "articles-restful-service",
+  "version": "1.0.0",
+  "description": "RESTful CRUD service for articles with a publish workflow and pessimistic locking (Node.js, Express, MongoDB)",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node seed/seed.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.18.0"
+  }
+}
